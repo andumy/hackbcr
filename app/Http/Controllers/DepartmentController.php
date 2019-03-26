@@ -130,6 +130,7 @@ class DepartmentController extends Controller
 
         $department =  Department::where('id',$depart_id)->first();
         $allusers = User::where('department_id','!=',$id)->get();
+        return redirect()->route('home');
         return view('department.edit')->with(['department' => $department,'allusers' => $allusers]);
     }
 
