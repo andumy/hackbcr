@@ -169,8 +169,8 @@ class HomeController extends Controller
         }
         return view('dashboard')
             ->with(['departments' => $data_dep, 'teams'=>  $data_team])
-            ->with('no_departments', $nr_data)
-            ->with('no_teams', $nr_team)
+            ->with('no_departments', Department::count())
+            ->with('no_teams', Team::count())
             ->with('no_users', User::count())
             ->with('no_feedbacks', Feedback::count());
     }
