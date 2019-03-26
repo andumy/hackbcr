@@ -23,7 +23,7 @@ class UserController extends Controller
             ->with('no_departments', Department::count())
             ->with('no_teams', Team::count())
             ->with('no_users', User::count())
-            ->with('no_feedbacks', Feedback::count());;
+            ->with('no_feedbacks', Feedback::count());
     }
 
     /**

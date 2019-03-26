@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Department;
+use App\Team;
 use Illuminate\Http\Request;
 use Auth;
 use App\User;
@@ -27,7 +29,11 @@ class FeedbackController extends Controller
                 'message' => $feedback->message,
             ]);
         }
-        return view('feedback.show')->with('feedbacks',$display); 
+        return view('feedback.show')->with('feedbacks',$display)
+            ->with('no_departments', Department::count())
+            ->with('no_teams', Team::count())
+            ->with('no_users', User::count())
+            ->with('no_feedbacks', Feedback::count());;
     }
 
     /**

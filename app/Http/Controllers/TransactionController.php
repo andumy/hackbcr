@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Department;
+use App\Feedback;
+use App\Team;
+use App\User;
 use Illuminate\Http\Request;
 use Auth;
 use App\Transaction;
@@ -20,7 +24,11 @@ class TransactionController extends Controller
     {
         $transactions = Auth::user()->transactions;
 
-        return view('transactions.show')->with('transactions',$transactions);
+        return view('transactions.show')->with('transactions',$transactions)
+            ->with('no_departments', Department::count())
+            ->with('no_teams', Team::count())
+            ->with('no_users', User::count())
+            ->with('no_feedbacks', Feedback::count());;
     }
 
     /**
