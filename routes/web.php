@@ -16,9 +16,12 @@ Route::get('/', function () {
 });
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::post('/2fa', 'TwoFactorController@verifyTwoFactor')->middleware('auth');
+Route::get('/reset2fa', 'TwoFactorController@resendToken')->name('2fareset')->middleware('auth');
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['auth','2fa']], function () {
+	Route::get('/home', 'HomeController@index')->name('home');
+	Route::get('/2fa', 'TwoFactorController@show')->name('2fa');
 	Route::resource('user', 'UserController', ['except' => ['show']]);
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
