@@ -18,7 +18,7 @@ class TwoFactorVerify
     public function handle($request, Closure $next)
     {
         $value = session('token_validated');
-        $value = True;
+        // $value = True;
         if($value){
             return $next($request);
         }

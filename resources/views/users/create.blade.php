@@ -50,6 +50,20 @@
                                         </span>
                                     @endif
                                 </div>
+                                <label class="form-control-label" for="input-email">{{ __('Phone') }}</label>
+                                <div class="form-group{{ $errors->has('phone') ? ' has-danger' : '' }}">
+                                    <input
+                                        type="text" name="phone" id="input-email"
+                                        class="form-control form-control-alternative {{ $errors->has('phone') ? ' is-invalid' : '' }}"
+                                        placeholder="{{ __('Phone') }}" value="{{ old('phone') }}" required
+                                    >
+
+                                    @if ($errors->has('email'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('phone') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
                                 <label class="form-control-label" for="input-email">{{ __('Email') }}</label>
                                 <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
                                     <input
@@ -105,6 +119,9 @@
                                             </option>
                                         @endforeach
                                     </select>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-success mt-4">{{ __('Add') }}</button>
                                 </div>
                             </div>
                         </form>

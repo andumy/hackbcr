@@ -19,7 +19,7 @@ class User extends Authenticatable
      */
 
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password', 'department_id',
+        'first_name', 'last_name', 'email', 'password', 'department_id','phone'
     ];
 
     /**
@@ -83,5 +83,28 @@ class User extends Authenticatable
         $token->token = mt_rand(10000,99999);
         $token->used = false;
         $token->save();
+
+        $$telefon = $this->phone;
+        $send_token = $token->token;
+        $ch = curl_init();
+        $user = env('SMSHW_USER',null);
+        $password = env('SMSHW_PASSWORD',null);
+        $number = "$telefon";
+        $label = 'CodeFest';
+        $text = "Your code is $send_token";
+        $data = array(
+         'user' => $user,
+         'number' => $number,
+         'text' => $text,
+         'label' => $label,
+         'sum' => sha1($user . $number . $text . $label . sha1($password))
+        );
+        curl_setopt($ch, CURLOPT_URL, 'https://api.smshighway.com/sms/send');
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        $request_output = curl_exec($ch);
+        $request_info = curl_getinfo($ch);
+
     }
 }
