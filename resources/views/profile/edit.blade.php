@@ -41,7 +41,11 @@
                                 <i class="ni location_pin mr-2"></i>{{ __('Bucharest, Romania') }}
                             </div>
                             <div class="h5 mt-4">
-                                <i class="ni business_briefcase-24 mr-2"></i>{{ auth()->user()->department->name }}
+                                <i class="ni business_briefcase-24 mr-2"></i>
+                                @if (isset(auth()->user()->department))
+                                    <span class="badge badge-pill badge-default">{{ auth()->user()->department->name }}</span>
+                                @else
+                                    <span class="badge badge-pill badge-secondary">N/A</span>
                             </div>
                             <div>
                                 <i class="ni education_hat mr-2"></i>{{ auth()->user()->phone }}
