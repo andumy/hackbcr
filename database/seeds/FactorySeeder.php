@@ -5,6 +5,7 @@ use App\Team;
 use App\Department;
 use App\User;
 use App\Role;
+
 class FactorySeeder extends Seeder
 {
     /**
@@ -14,21 +15,18 @@ class FactorySeeder extends Seeder
      */
     public function run()
     {
-        foreach(User::all() as $user){
-            if(!$user->hasRole('admin')){
-                $user->department_id = factory(App\Department::class)->create()->id;
-                for($i = 0; $i<rand(1, 3);$i++){
-                    $user->teams()->save(factory(App\Team::class)->create());
-                }
-                if( ! ($user->hasRole('dep_worker') || $user->hasRole('dep_lead')) ){
-                    $role = Role::where('name','dep_worker')->first();
-                    $user->attachRole($role);
-                }
-                   
-                $user->save();
-            }
-            
-        }
+        
+        $depworker_role = Role::where('name','dep_worker')->first();
+        $teamworker_role = Role::where('name','team_worker')->first();
+
+        factory(App\User::class, 10)->create()->each(function($u) use($depworker_role,$teamworker_role){
+            $u->department_id = Department::inRandomOrder()->first()->id;
+            $u->save();
+            $u->attachRole($teamworker_role);
+            $u->attachRole($depworker_role);
+        });
+
+       
 
     }
 }

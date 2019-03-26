@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Department;
+use App\Feedback;
 use App\Team;
 use App\User;
 use App\Http\Requests\UserRequest;
@@ -18,7 +19,11 @@ class UserController extends Controller
      */
     public function index(User $model)
     {
-        return view('users.index', ['users' => $model->paginate(15)]);
+        return view('users.index', ['users' => $model->paginate(10)])
+            ->with('no_departments', Department::count())
+            ->with('no_teams', Team::count())
+            ->with('no_users', User::count())
+            ->with('no_feedbacks', Feedback::count());
     }
 
     /**
