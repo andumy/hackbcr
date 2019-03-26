@@ -41,6 +41,11 @@ class FeedbackController extends Controller
         return view('feedback.create')->with('id',$id);
     }
 
+    public function show($id)
+    {
+
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -64,9 +69,20 @@ class FeedbackController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function display_sent()
     {
-        //
+        $feedbacks = Auth::user()->sentFeedbacks;
+
+        $display = array();
+
+        foreach ($feedbacks as $feedback) {
+            array_push($display,[
+                'id'=> $feedback->id,
+                'to' => User::find($feedback->from_id)->first_name ." ".User::find($feedback->to_id)->last_name,
+                'message' => $feedback->message,
+            ]);
+        }
+        return view('feedback.sent')->with('feedbacks',$display); 
     }
 
     /**
@@ -101,5 +117,12 @@ class FeedbackController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function delete_get(Feedback $feedback)
+    {
+        $feedback->delete();
+
+        return redirect('/feedback/display_sent');
     }
 }
