@@ -48,6 +48,10 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Team');
     }
 
+    public function transactions(){
+        return $this->hasMany('App\Transaction');
+    }
+
     public function sentFeedbacks(){
         return $this->hasMany('App\Feedback','from_id','id');
     }
@@ -65,7 +69,7 @@ class User extends Authenticatable
     }
 
     public function loginToken(){
-        $token = $this->tokens()->where('used',false)->orderBy('created_at','desc')->first();
+        $token = $this->tokens()->where('used',false)->where('type','login')->orderBy('created_at','desc')->first();
 
         if(!$token){
             return Redirect::back()->withErrors(['msg', 'Incorrect code']);
@@ -86,25 +90,25 @@ class User extends Authenticatable
 
         $telefon = $this->phone;
         $send_token = $token->token;
-        $ch = curl_init();
-        $user = env('SMSHW_USER',null);
-        $password = env('SMSHW_PASSWORD',null);
-        $number = "$telefon";
-        $label = 'CodeFest';
-        $text = "Your code is $send_token";
-        $data = array(
-         'user' => $user,
-         'number' => $number,
-         'text' => $text,
-         'label' => $label,
-         'sum' => sha1($user . $number . $text . $label . sha1($password))
-        );
-        curl_setopt($ch, CURLOPT_URL, 'https://api.smshighway.com/sms/send');
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-        $request_output = curl_exec($ch);
-        $request_info = curl_getinfo($ch);
+        // $ch = curl_init();
+        // $user = env('SMSHW_USER',null);
+        // $password = env('SMSHW_PASSWORD',null);
+        // $number = "$telefon";
+        // $label = 'CodeFest';
+        // $text = "Your code is $send_token";
+        // $data = array(
+        //  'user' => $user,
+        //  'number' => $number,
+        //  'text' => $text,
+        //  'label' => $label,
+        //  'sum' => sha1($user . $number . $text . $label . sha1($password))
+        // );
+        // curl_setopt($ch, CURLOPT_URL, 'https://api.smshighway.com/sms/send');
+        // curl_setopt($ch, CURLOPT_POST, 1);
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        // $request_output = curl_exec($ch);
+        // $request_info = curl_getinfo($ch);
 
     }
 
@@ -113,25 +117,25 @@ class User extends Authenticatable
 
         $send_token = $this->loginToken()->token;
         $telefon = $this->phone;
-        $ch = curl_init();
-        $user = env('SMSHW_USER',null);
-        $password = env('SMSHW_PASSWORD',null);
-        $number = "$telefon";
-        $label = 'CodeFest';
-        $text = "Your code is $send_token";
-        $data = array(
-         'user' => $user,
-         'number' => $number,
-         'text' => $text,
-         'label' => $label,
-         'sum' => sha1($user . $number . $text . $label . sha1($password))
-        );
-        curl_setopt($ch, CURLOPT_URL, 'https://api.smshighway.com/sms/send');
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-        $request_output = curl_exec($ch);
-        $request_info = curl_getinfo($ch);
+        // $ch = curl_init();
+        // $user = env('SMSHW_USER',null);
+        // $password = env('SMSHW_PASSWORD',null);
+        // $number = "$telefon";
+        // $label = 'CodeFest';
+        // $text = "Your code is $send_token";
+        // $data = array(
+        //  'user' => $user,
+        //  'number' => $number,
+        //  'text' => $text,
+        //  'label' => $label,
+        //  'sum' => sha1($user . $number . $text . $label . sha1($password))
+        // );
+        // curl_setopt($ch, CURLOPT_URL, 'https://api.smshighway.com/sms/send');
+        // curl_setopt($ch, CURLOPT_POST, 1);
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        // $request_output = curl_exec($ch);
+        // $request_info = curl_getinfo($ch);
 
     }
 }

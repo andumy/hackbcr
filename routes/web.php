@@ -27,6 +27,9 @@ Route::group(['middleware' => ['auth','2fa']], function () {
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
 	Route::resource('department','DepartmentController');
+	Route::resource('transaction','TransactionController');
+	Route::post('transaction/{trans}/sign','TransactionController@sign');
+	Route::get('transaction/{trans}/sign','TransactionController@sign_off');
 	Route::resource('team','TeamController');
 	Route::post('department/remove/{id}','DepartmentController@remove')->name('department.remove');
 });

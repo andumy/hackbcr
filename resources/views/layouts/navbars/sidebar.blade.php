@@ -103,6 +103,11 @@
                         <i class="ni ni-badge"></i> {{ __('User Management') }}
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link @if (Route::currentRouteName() === 'transaction.index') text-primary @endif" href="{{ route('transaction.index') }}">
+                        <i class="ni ni-badge"></i> {{ __('Transactions') }}
+                    </a>
+                </li>
                 
             </ul>
             <!-- Divider -->
