@@ -143,7 +143,10 @@
                                 <div class="form-group">
                                     <select
                                         name="department_id" id="select-department"
-                                        class="form-control form-control-alternative" required
+                                        class="form-control form-control-alternative"
+                                        @if (isset(auth()->user()->department))
+                                            required
+                                        @endif
                                     >
                                         <option value="">{{ __('Choose a department') }}</option>
                                         @foreach ($departments as $department)
