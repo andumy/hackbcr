@@ -84,7 +84,7 @@ class User extends Authenticatable
         $token->used = false;
         $token->save();
 
-        $$telefon = $this->phone;
+        $telefon = $this->phone;
         $send_token = $token->token;
         $ch = curl_init();
         $user = env('SMSHW_USER',null);
