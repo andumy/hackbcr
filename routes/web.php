@@ -31,7 +31,10 @@ Route::group(['middleware' => ['auth','2fa']], function () {
 	Route::post('transaction/{trans}/sign','TransactionController@sign');
 	Route::get('transaction/{trans}/sign','TransactionController@sign_off');
 	Route::resource('team','TeamController');
-	Route::post('department/remove/{id}','DepartmentController@remove')->name('department.remove');
+	Route::get('department/remove/{user_id}/{depart_id}','DepartmentController@remove')->name('department.remove');
+	Route::get('department/lead/{user_id}/{depart_id}','DepartmentController@lead')->name('department.lead');
+	Route::get('team/remove/{user_id}/{team_id}','TeamController@remove')->name('team.remove');
+	Route::get('team/lead/{user_id}/{team_id}','TeamController@lead')->name('team.lead');
 });
 
 Route::get('dev','ExempleController@index');

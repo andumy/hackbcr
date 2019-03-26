@@ -5,6 +5,7 @@ use App\User;
 use App\Department;
 use App\Team;
 
+use DB;
 class HomeController extends Controller
 {
     /**
@@ -30,9 +31,16 @@ class HomeController extends Controller
         $data_team = [];
         foreach($teams as $team){
             $deps = [];
-            foreach($team->users as $user){
-                
-                 $deps[] = $user->department->name;
+            $ids =  DB::table('role_user')
+                ->where('team_id',$team->id)
+                ->pluck('user_id')->toArray();
+            
+            $users = User::whereIn('id',$ids)->get();
+            
+            foreach($users as $user){
+                if($user->department_id != null){
+                    $deps[] = $user->department->name;
+                }
             }
             
             $deps = array_unique($deps);

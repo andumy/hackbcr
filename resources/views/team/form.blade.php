@@ -4,7 +4,7 @@
             <div class="card-header border-0">
                 <div class="row align-items-center">
                     <div class="col">
-                        <h3 class="mb-0">{{__($department->name)}}</h3>
+                        <h3 class="mb-0">{{__($team->name)}}</h3>
                     </div>
                 </div>
             </div>
@@ -14,26 +14,32 @@
                     <thead class="thead-light">
                         <tr>
                             <th scope="col">{{__('Name')}}</th>
+                            <th scope="col">{{__('Department')}}</th>
                             <th scope="col">{{__('Delete')}}</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($department->users as $user)
+                        @foreach($users as $user)
                             <tr>
                                 <th scope="row">
                                     {{__($user->first_name.' '.$user->last_name)}}
                                 </th>
                                 <td>
-                                    <a href="{{route('department.remove',[$user->id,$department->id])}}">
+                                    {{__($user->department->name)}}
+                                </td>
+                                <td>
+                                    <a href="{{route('team.remove',[$user->id,$team->id])}}">
                                         <button class='btn btn-danger'>
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </a>
-                                    <a href="{{route('department.lead',[$user->id,$department->id])}}">
-                                        <button class='btn btn-success'>
-                                            <i class="fas fa-crown"></i>
-                                        </button>
-                                    </a>
+                                    @if($user->id != $lead)
+                                        <a href="{{route('team.lead',[$user->id,$team->id])}}">
+                                            <button class='btn btn-success'>
+                                                <i class="fas fa-crown"></i>
+                                            </button>
+                                        </a>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -44,7 +50,7 @@
     </div>
 
         
-    <form method="POST" action="{{ route('department.store') }}" autocomplete="off">
+    <form method="POST" action="{{ route('team.store') }}" autocomplete="off">
         @csrf
         <div class='container-fluid'>
             <div class='row'>
@@ -55,7 +61,7 @@
                             <option value="{{__($user->id)}}">{{__($user->first_name.' '.$user->last_name)}}</option>
                         @endforeach
                     </select>
-                    <input type="hidden" id="department_id" name="department_id" value="{{__($department->id)}}">
+                    <input type="hidden" id="team_id" name="team_id" value="{{__($team->id)}}">
                     <div class="text-center">
                             <button type="submit" class="btn btn-success mt-4">{{ __('Save') }}</button>
                         </div>

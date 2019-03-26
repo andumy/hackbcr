@@ -20,6 +20,7 @@ class TwoFactorVerify
         $value = session('token_validated');
         session(['token_validated' => True]);
         $value = True;
+
         if($value){
             return $next($request);
         }
