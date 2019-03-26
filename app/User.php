@@ -45,7 +45,15 @@ class User extends Authenticatable
     }
 
     public function teams(){
-        return $this->hasMany('App\Teams');
+        return $this->belongsToMany('App\Team');
+    }
+
+    public function sentFeedbacks(){
+        return $this->hasMany('App\Feedback','from_id','id');
+    }
+
+    public function recievedFeedbacks(){
+        return $this->hasMany('App\Feedback','to_id','id');
     }
 
     public function getAvatar(int $size = 64) {
