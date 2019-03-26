@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/home');
 });
 Auth::routes();
 
@@ -23,6 +23,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
+	Route::resource('department','DepartmentController');
+	Route::resource('team','TeamController');
+	Route::post('department/remove/{id}','DepartmentController@remove')->name('department.remove');
 });
 
 Route::get('dev','ExempleController@index');
