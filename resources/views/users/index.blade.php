@@ -35,6 +35,8 @@
                                 <tr>
                                     <th scope="col">{{ __('Name') }}</th>
                                     <th scope="col">{{ __('Email') }}</th>
+                                    <th scope="col">{{ __('Department')  }}</th>
+                                    <th scope="col">{{ __('Teams') }}</th>
                                     <th scope="col">{{ __('Creation Date') }}</th>
                                     <th scope="col"></th>
                                 </tr>
@@ -45,6 +47,18 @@
                                         <td>{{ $user->first_name }} {{ $user->last_name }}</td>
                                         <td>
                                             <a href="mailto:{{ $user->email }}">{{ $user->email }}</a>
+                                        </td>
+                                        <td>
+                                            @if (isset($user->department))
+                                                <span class="badge badge-pill badge-default">{{ $user->department->name }}</span>
+                                            @else
+                                                <span class="badge badge-pill badge-secondary">N/A</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @foreach ($user->teams as $team)
+                                                <span class="badge badge-pill badge-primary">{{ $team->name }}</span>
+                                            @endforeach
                                         </td>
                                         <td>{{ $user->created_at->format('d/m/Y H:i') }}</td>
                                         <td class="text-right">
