@@ -24,7 +24,12 @@
                                     {{__($user->first_name.' '.$user->last_name)}}
                                 </th>
                                 <td>
-                                    <a href="{{route('department.remove',$user->id)}}">
+                                    <a href="{{route('department.remove',[$user->id,$department->id])}}">
+                                        <button class='btn btn-danger'>
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </a>
+                                    <a href="{{route('department.lead',[$user->id,$department->id])}}">
                                         <button class='btn btn-danger'>
                                             <i class="fas fa-trash"></i>
                                         </button>

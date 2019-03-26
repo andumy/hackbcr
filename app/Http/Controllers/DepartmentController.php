@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Department;
 use App\User;
+use App\Role;
+use DB;
 
 class DepartmentController extends Controller
 {
@@ -39,8 +41,27 @@ class DepartmentController extends Controller
         $data = $request->all();
 
         $user = User::where('id',$data['user_id'])->first();
+
+        if($user->hasRole('dep_lead')){
+            
+            $worker_id = Role::where('name','dep_worker')->first()->id;
+            $lead_id = Role::where('name','dep_lead')->first()->id;
+
+            DB::table('role_user')
+            ->where('role_id',$lead_id)
+            ->where('user_id',$user->id)
+            ->delete();
+
+            DB::table('role_user')->insert([
+                'user_id' => $user->id,
+                'role_id' => $worker_id,
+                'team_id' => null
+            ]);
+        }
+
         $user->department_id = $data['department_id'];
         $user->save();
+        
 
         return redirect()->route('home');
     }
@@ -92,7 +113,7 @@ class DepartmentController extends Controller
         //
     }
 
-    public function remove($id){
+    public function remove($id,$depart_id){
         
     }
 }
