@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Department;
+use App\Team;
 use App\User;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
@@ -26,7 +28,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        $departments = Department::all();
+
+        return view('users.create')->with('departments', $departments);
     }
 
     /**
@@ -51,7 +55,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        $departments = Department::all();
+
+        return view('users.edit', compact('user'))->with('departments', $departments);
     }
 
     /**

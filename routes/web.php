@@ -27,3 +27,4 @@ Route::group(['middleware' => ['auth','2fa']], function () {
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
 });
 
+Route::get('dev','ExempleController@index');

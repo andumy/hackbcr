@@ -27,8 +27,52 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert([
             'first_name' => 'Admin',
             'last_name' => 'Admin',
-            'username' => 'Admin',
             'email' => 'admin@app.ro',
+            'phone' => '0000000000',
+            'email_verified_at' => Carbon::now(),
+            'password' => Hash::make('secret'),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        DB::table('users')->insert([
+            'first_name' => 'team_worker',
+            'last_name' => 'team_worker',
+            'email' => 'team_worker@app.ro',
+            'phone' => '0000000001',
+            'email_verified_at' => Carbon::now(),
+            'password' => Hash::make('secret'),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        DB::table('users')->insert([
+            'first_name' => 'team_lead',
+            'last_name' => 'team_lead',
+            'email' => 'team_lead@app.ro',
+            'phone' => '0000000002',
+            'email_verified_at' => Carbon::now(),
+            'password' => Hash::make('secret'),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        DB::table('users')->insert([
+            'first_name' => 'dep_worker',
+            'last_name' => 'dep_worker',
+            'email' => 'dep_worker@app.ro',
+            'phone' => '0000000003',
+            'email_verified_at' => Carbon::now(),
+            'password' => Hash::make('secret'),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
+
+        DB::table('users')->insert([
+            'first_name' => 'dep_lead',
+            'last_name' => 'dep_lead',
+            'email' => 'dep_lead@app.ro',
+            'phone' => '0000000004',
             'email_verified_at' => Carbon::now(),
             'password' => Hash::make('secret'),
             'created_at' => Carbon::now(),
@@ -38,16 +82,50 @@ class UsersTableSeeder extends Seeder
         $admin_role = new Role();
 		$admin_role->name = 'admin';
 		$admin_role->display_name = 'Admin';
-		$admin_role->save();
+        $admin_role->save();
+        
+        $teamworker_role = new Role();
+		$teamworker_role->name = 'team_worker';
+		$teamworker_role->display_name = 'team_worker';
+		$teamworker_role->save();
+        
+        $teamlead_role = new Role();
+		$teamlead_role->name = 'team_lead';
+		$teamlead_role->display_name = 'team_lead';
+        $teamlead_role->save();
+
+        $depworker_role = new Role();
+		$depworker_role->name = 'dep_worker';
+		$depworker_role->display_name = 'dep_worker';
+		$depworker_role->save();
+        
+        $deplead_role = new Role();
+		$deplead_role->name = 'dep_lead';
+		$deplead_role->display_name = 'dep_lead';
+        $deplead_role->save();
+        
 
         $manage_user = new Permission();
 		$manage_user->name = 'manage-user';
         $manage_user->save();
-        
         $admin_role->attachPermissions(array($manage_user));
+
 
         $admin = User::where('email', 'admin@app.ro')->first();
         $admin->attachRole($admin_role);
+
+        $team_worker = User::where('email', 'team_worker@app.ro')->first();
+        $team_worker->attachRole($teamworker_role);
+
+        $team_lead = User::where('email', 'team_lead@app.ro')->first();
+        $team_lead->attachRole($teamlead_role);
+
+        $dep_worker = User::where('email', 'dep_worker@app.ro')->first();
+        $dep_worker->attachRole($depworker_role);
+
+        $dep_lead = User::where('email', 'dep_lead@app.ro')->first();
+        $dep_lead->attachRole($deplead_role);
+
         
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
