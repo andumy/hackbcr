@@ -113,7 +113,11 @@
                         <i class="ni ni-badge"></i> {{ __('Feedback') }}
                     </a>
                 </li>
-                
+                <li class="nav-item">
+                    <a class="nav-link @if (Route::currentRouteName() === 'feedback.display_sent') text-primary @endif" href="{{ route('feedback.display_sent') }}">
+                        <i class="ni ni-badge"></i> {{ __('Sent Feedback') }}
+                    </a>
+                </li>
             </ul>
             <!-- Divider -->
             <hr class="my-3">
