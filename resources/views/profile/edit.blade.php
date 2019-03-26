@@ -46,6 +46,7 @@
                                     <span class="badge badge-pill badge-default">{{ auth()->user()->department->name }}</span>
                                 @else
                                     <span class="badge badge-pill badge-secondary">N/A</span>
+                                @endif
                             </div>
                             <div>
                                 <i class="ni education_hat mr-2"></i>{{ auth()->user()->phone }}
