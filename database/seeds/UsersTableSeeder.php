@@ -37,7 +37,6 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert([
             'first_name' => 'team_worker',
             'last_name' => 'team_worker',
-            'username' => 'team_worker',
             'email' => 'team_worker@app.ro',
             'email_verified_at' => Carbon::now(),
             'password' => Hash::make('secret'),
@@ -48,7 +47,6 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert([
             'first_name' => 'team_lead',
             'last_name' => 'team_lead',
-            'username' => 'team_lead',
             'email' => 'team_lead@app.ro',
             'email_verified_at' => Carbon::now(),
             'password' => Hash::make('secret'),
@@ -59,7 +57,6 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert([
             'first_name' => 'dep_worker',
             'last_name' => 'dep_worker',
-            'username' => 'dep_worker',
             'email' => 'dep_worker@app.ro',
             'email_verified_at' => Carbon::now(),
             'password' => Hash::make('secret'),
@@ -70,7 +67,6 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert([
             'first_name' => 'dep_lead',
             'last_name' => 'dep_lead',
-            'username' => 'dep_lead',
             'email' => 'dep_lead@app.ro',
             'email_verified_at' => Carbon::now(),
             'password' => Hash::make('secret'),
