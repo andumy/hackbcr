@@ -108,6 +108,11 @@
                         <i class="ni ni-badge"></i> {{ __('Transactions') }}
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link @if (Route::currentRouteName() === 'feedback.index') text-primary @endif" href="{{ route('feedback.index') }}">
+                        <i class="ni ni-badge"></i> {{ __('Feedback') }}
+                    </a>
+                </li>
                 
             </ul>
             <!-- Divider -->

@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
+use App\User;
+use App\Feedback;
+
 
 class FeedbackController extends Controller
 {
@@ -13,7 +17,17 @@ class FeedbackController extends Controller
      */
     public function index()
     {
-        //
+        $feedbacks = Auth::user()->recievedFeedbacks;
+
+        $display = array();
+
+        foreach ($feedbacks as $feedback) {
+            array_push($display,[
+                'from' => User::find($feedback->from_id)->first_name ." ".User::find($feedback->from_id)->last_name,
+                'message' => $feedback->message,
+            ]);
+        }
+        return view('feedback.show')->with('feedbacks',$display); 
     }
 
     /**
@@ -21,9 +35,10 @@ class FeedbackController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $req)
     {
-        //
+        $id = $req->input('id');
+        return view('feedback.create')->with('id',$id);
     }
 
     /**
@@ -34,7 +49,13 @@ class FeedbackController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $feedback = new Feedback();
+        $feedback->from_id = Auth::user()->id;
+        $feedback->to_id = $request->input('to_id');
+        $feedback->message = $request->input('feedback');
+        $feedback->save();
+
+        return redirect('/home');
     }
 
     /**
