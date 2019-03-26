@@ -105,17 +105,17 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link @if (Route::currentRouteName() === 'transaction.index') text-primary @endif" href="{{ route('transaction.index') }}">
-                        <i class="ni ni-badge"></i> {{ __('Transactions') }}
+                        <i class="ni ni-money-coins"></i> {{ __('Transactions') }}
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link @if (Route::currentRouteName() === 'feedback.index') text-primary @endif" href="{{ route('feedback.index') }}">
-                        <i class="ni ni-badge"></i> {{ __('Feedback') }}
+                        <i class="ni ni-chat-round"></i> {{ __('Feedback') }}
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link @if (Route::currentRouteName() === 'feedback.display_sent') text-primary @endif" href="{{ route('feedback.display_sent') }}">
-                        <i class="ni ni-badge"></i> {{ __('Sent Feedback') }}
+                        <i class="ni ni-send"></i> {{ __('Sent Feedback') }}
                     </a>
                 </li>
             </ul>
