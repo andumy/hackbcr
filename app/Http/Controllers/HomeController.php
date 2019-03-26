@@ -154,11 +154,23 @@ class HomeController extends Controller
             }
         }
 
+        if(is_array($data_dep)){
+            $nr_data = count($data_dep);
+        }
+        else {
+            $nr_data = 0;
+        }
 
+        if(is_array($data_team)){
+            $nr_team = count($data_team);
+        }
+        else {
+            $nr_team = 0;
+        }
         return view('dashboard')
             ->with(['departments' => $data_dep, 'teams'=>  $data_team])
-            ->with('no_departments', count($data_dep))
-            ->with('no_teams', count($data_team))
+            ->with('no_departments', $nr_data)
+            ->with('no_teams', $nr_team)
             ->with('no_users', User::count())
             ->with('no_feedbacks', Feedback::count());
     }

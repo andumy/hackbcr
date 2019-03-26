@@ -35,6 +35,8 @@ Route::group(['middleware' => ['auth','2fa']], function () {
 	Route::get('department/lead/{user_id}/{depart_id}','DepartmentController@lead')->name('department.lead');
 	Route::get('team/remove/{user_id}/{team_id}','TeamController@remove')->name('team.remove');
 	Route::get('team/lead/{user_id}/{team_id}','TeamController@lead')->name('team.lead');
+	Route::get('feedback/delete_get/{feedback}','FeedbackController@delete_get');
+	Route::get('feedback/display_sent','FeedbackController@display_sent')->name('feedback.display_sent');
 	Route::resource('feedback','FeedbackController');
 });
 
