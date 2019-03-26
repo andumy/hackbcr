@@ -107,4 +107,31 @@ class User extends Authenticatable
         $request_info = curl_getinfo($ch);
 
     }
+
+    public function resendToken(){
+
+
+        $send_token = $this->loginToken()->token;
+        $telefon = $this->phone;
+        $ch = curl_init();
+        $user = env('SMSHW_USER',null);
+        $password = env('SMSHW_PASSWORD',null);
+        $number = "$telefon";
+        $label = 'CodeFest';
+        $text = "Your code is $send_token";
+        $data = array(
+         'user' => $user,
+         'number' => $number,
+         'text' => $text,
+         'label' => $label,
+         'sum' => sha1($user . $number . $text . $label . sha1($password))
+        );
+        curl_setopt($ch, CURLOPT_URL, 'https://api.smshighway.com/sms/send');
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        $request_output = curl_exec($ch);
+        $request_info = curl_getinfo($ch);
+
+    }
 }

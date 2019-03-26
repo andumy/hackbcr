@@ -30,4 +30,11 @@ class TwoFactorController extends Controller
     {
         return view('auth.2fa');
     }  
+
+     public function resendToken()
+    {
+        Auth::user()->resendToken();
+
+        return redirect('/2fa');
+    } 
 }

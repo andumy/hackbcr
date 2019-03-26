@@ -29,7 +29,7 @@
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary my-4">{{ __('Sign in') }}</button>
-                                <button type="button" class="btn btn-primary my-4">{{ __('Resend token') }}</button>
+                                <a  href="{{ route('2fareset') }}" class="btn btn-primary my-4">{{ __('Resend token') }}</a>
                             </div>
                         </form>
                     </div>

@@ -17,6 +17,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::post('/2fa', 'TwoFactorController@verifyTwoFactor')->middleware('auth');
+Route::get('/reset2fa', 'TwoFactorController@resendToken')->name('2fareset')->middleware('auth');
 
 Route::group(['middleware' => ['auth','2fa']], function () {
 	Route::get('/home', 'HomeController@index')->name('home');
