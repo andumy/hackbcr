@@ -119,9 +119,9 @@ class DepartmentController extends Controller
         
         $user = User::where('id',$user_id)->first();
         $depart = Department::where('id',$depart_id)->first();
-
+        $rls = Role::whereIn('name',['dep_worker','dep_lead'])->pluck('id')->toArray();
         DB::table('role_user')
-            ->whereIn('role_id',['dep_worker','dep_lead'])
+            ->whereIn('role_id',$rls)
             ->where('user_id',$user->id)
             ->delete();
 

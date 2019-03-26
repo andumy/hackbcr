@@ -69,7 +69,9 @@
                                     @foreach($teams as $team)
                                         <tr>
                                             <th scope="row">
-                                                {{__($team->name)}}
+                                                <a href="{{route('team.edit',$team->id)}}">
+                                                    {{__($team->name)}}
+                                                </a>
                                             </th>
                                             <td>
                                                 @foreach($team->dep_comp as $dep)
