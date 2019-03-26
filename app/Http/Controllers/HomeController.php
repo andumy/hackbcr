@@ -25,12 +25,22 @@ class HomeController extends Controller
     public function index()
     {
         $departments = Department::all();
-//        foreach($departments as $depart){
-//            var_dump($depart->name);
-//            var_dump(count($depart->users->toArray()));
-//
-//        }
-//        die();
-        return view('dashboard')->with('departments', $departments);
+        $data_dep = [];
+        foreach($departments as $depart){
+            $lead_user = User::where('department_id',$depart->id)
+                        ->whereHas('roles', function ($query) {
+                            $query->where('name', '=', 'dep_lead');
+                        })
+                        ->first();
+            $lead_user_name = $lead_user ? $lead_user->first_name." ".$lead_user->last_name : null;
+            $data_dep[] = (object)[
+                'name' => $depart->name,
+                'count' => count($depart->users->toArray()),
+                'lead' => $lead_user_name
+            ];
+            
+        } 
+
+        return view('dashboard')->with(['departments' => $data_dep]);
     }
 }
