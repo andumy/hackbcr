@@ -25,7 +25,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
 	Route::resource('department','DepartmentController');
 	Route::resource('team','TeamController');
-	Route::post('department/remove/{id}/{depart_id}','DepartmentController@remove')->name('department.remove');
+	Route::get('department/remove/{user_id}/{depart_id}','DepartmentController@remove')->name('department.remove');
+	Route::get('department/lead/{user_id}/{depart_id}','DepartmentController@lead')->name('department.lead');
 });
 
 Route::get('dev','ExempleController@index');

@@ -86,7 +86,9 @@ class DepartmentController extends Controller
     public function edit($id)
     {
         $department =  Department::where('id',$id)->first();
-        $allusers = User::where('department_id','!=',$id)->get();
+        $allusers = User::whereHas('roles',function($q){
+            $q = $q->where('name','!=','admin');
+        })->get();
         return view('department.edit')->with(['department' => $department,'allusers' => $allusers]);
     }
 
@@ -113,7 +115,72 @@ class DepartmentController extends Controller
         //
     }
 
-    public function remove($id,$depart_id){
+    public function remove($user_id,$depart_id){
         
+        $user = User::where('id',$user_id)->first();
+        $depart = Department::where('id',$depart_id)->first();
+
+        DB::table('role_user')
+            ->whereIn('role_id',['dep_worker','dep_lead'])
+            ->where('user_id',$user->id)
+            ->delete();
+
+        $user->department_id = null;
+        $user->save();
+
+        $department =  Department::where('id',$depart_id)->first();
+        $allusers = User::where('department_id','!=',$id)->get();
+        return view('department.edit')->with(['department' => $department,'allusers' => $allusers]);
+    }
+
+    public function lead($user_id,$depart_id){
+
+        $lead_id = Role::where('name','dep_lead')->first()->id;
+        $worker_id = Role::where('name','dep_worker')->first()->id;
+
+        $ex_lead = User::whereHas('roles',function($q){
+            $q = $q->where('name','dep_lead');
+        })
+        ->where('department_id',$depart_id)->first();
+
+        DB::table('role_user')
+            ->whereIn('role_id',[$lead_id,$worker_id])
+            ->where('user_id',$user_id)
+            ->delete();
+        
+        
+        
+        DB::table('role_user')->insert([
+                'user_id' => $user_id,
+                'role_id' => $lead_id,
+                'team_id' => null
+        ]);
+        
+    
+
+        
+        
+        
+
+        if($ex_lead)
+        {
+            $ex_lead = $ex_lead->id;
+
+            $ex_line = DB::table('role_user')
+            ->where('user_id' ,$ex_lead)
+            ->where('role_id' , $lead_id)
+            ->delete();
+
+            DB::table('role_user')->insert([
+                'user_id' => $ex_lead,
+                'role_id' => $worker_id,
+                'team_id' => null
+            ]);
+    
+        }
+
+        $department =  Department::where('id',$depart_id)->first();
+        $allusers = User::where('department_id','!=',$depart_id)->get();
+        return redirect()->route('home');
     }
 }

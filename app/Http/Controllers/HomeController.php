@@ -31,8 +31,9 @@ class HomeController extends Controller
         foreach($teams as $team){
             $deps = [];
             foreach($team->users as $user){
-                
-                 $deps[] = $user->department->name;
+                if($user->department_id != null){
+                    $deps[] = $user->department->name;
+                }
             }
             
             $deps = array_unique($deps);

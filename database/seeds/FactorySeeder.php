@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 use App\Team;
 use App\Department;
 use App\User;
-
+use App\Role;
 class FactorySeeder extends Seeder
 {
     /**
@@ -20,6 +20,11 @@ class FactorySeeder extends Seeder
                 for($i = 0; $i<rand(1, 3);$i++){
                     $user->teams()->save(factory(App\Team::class)->create());
                 }
+                if( ! ($user->hasRole('dep_worker') || $user->hasRole('dep_lead')) ){
+                    $role = Role::where('name','dep_worker')->first();
+                    $user->attachRole($role);
+                }
+                   
                 $user->save();
             }
             

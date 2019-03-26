@@ -30,8 +30,8 @@
                                         </button>
                                     </a>
                                     <a href="{{route('department.lead',[$user->id,$department->id])}}">
-                                        <button class='btn btn-danger'>
-                                            <i class="fas fa-trash"></i>
+                                        <button class='btn btn-success'>
+                                            <i class="fas fa-crown"></i>
                                         </button>
                                     </a>
                                 </td>
