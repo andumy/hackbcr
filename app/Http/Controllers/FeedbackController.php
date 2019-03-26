@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\User;
 use App\Feedback;
-
+use DB;
 
 class FeedbackController extends Controller
 {
@@ -21,6 +21,7 @@ class FeedbackController extends Controller
     {
         $feedbacks = Auth::user()->recievedFeedbacks;
 
+    
         $display = array();
 
         foreach ($feedbacks as $feedback) {
@@ -88,7 +89,10 @@ class FeedbackController extends Controller
                 'message' => $feedback->message,
             ]);
         }
-        return view('feedback.sent')->with('feedbacks',$display); 
+        return view('feedback.sent')->with('feedbacks',$display)->with('no_departments', Department::count())
+        ->with('no_teams', Team::count())
+        ->with('no_users', User::count())
+        ->with('no_feedbacks', Feedback::count());; 
     }
 
     /**

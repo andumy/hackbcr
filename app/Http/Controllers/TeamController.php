@@ -140,6 +140,8 @@ class TeamController extends Controller
                 ->pluck('user_id')->toArray();
         
         $allusers = User::whereNotIn('id',$users_id)->get();
+        
+        return redirect()->route('home');
         return view('team.edit')->with(['team' => $team,'allusers' => $allusers]);
     }
 
