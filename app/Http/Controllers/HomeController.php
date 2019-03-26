@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Feedback;
 use App\User;
 use App\Department;
 use App\Team;
@@ -84,7 +85,8 @@ class HomeController extends Controller
             $data_dep = new \stdClass;
             $data_dep->id = Auth::user()->department_id;
             $data_dep->name = Department::where('id', $data_dep->id)->first()->name;
-            
+
+            $users = [];
             if(Auth::user()->hasRole('dep_lead')){
                 $users = User::where('department_id',$data_dep->id)->whereNot('id',Auth::user()->id)->get();
             }
@@ -152,6 +154,11 @@ class HomeController extends Controller
         }
 
 
-        return view('dashboard')->with(['departments' => $data_dep, 'teams'=>  $data_team]);
+        return view('dashboard')
+            ->with(['departments' => $data_dep, 'teams'=>  $data_team])
+            ->with('no_departments', count($data_dep))
+            ->with('no_teams', count($data_team))
+            ->with('no_users', User::count())
+            ->with('no_feedbacks', Feedback::count());
     }
 }
