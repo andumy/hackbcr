@@ -6,7 +6,12 @@
         </button>
         <!-- Brand -->
         <a class="navbar-brand pt-0" href="{{ route('home') }}">
-            <img src="{{ asset('argon') }}/img/brand/blue.png" class="navbar-brand-img" alt="...">
+            <h1 class="text-primary" style="font-family: 'Baloo Chettan', cursive;">
+                <strong>
+                    emp <i class="ni ni-circle-08"></i> me
+                </strong>
+            </h1>
+            {{--<img src="{{ asset('argon') }}/img/brand/blue.png" class="navbar-brand-img" alt="...">--}}
         </a>
         <!-- User -->
         <ul class="nav align-items-center d-md-none">
@@ -54,7 +59,12 @@
                 <div class="row">
                     <div class="col-6 collapse-brand">
                         <a href="{{ route('home') }}">
-                            <img src="{{ asset('argon') }}/img/brand/blue.png">
+                            <h1 class="text-primary" style="font-family: 'Baloo Chettan', cursive;">
+                                <strong>
+                                    emp <i class="ni ni-circle-08"></i> me
+                                </strong>
+                            </h1>
+                            {{--<img src="{{ asset('argon') }}/img/brand/blue.png">--}}
                         </a>
                     </div>
                     <div class="col-6 collapse-close">
