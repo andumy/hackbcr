@@ -95,6 +95,7 @@
                                         name="department_id" id="select-department"
                                         class="form-control form-control-alternative" required
                                     >
+                                        <option value="">{{ __('Choose a department') }}</option>
                                         @foreach ($departments as $department)
                                             <option
                                                 value="{{ $department->id  }}"
