@@ -98,6 +98,7 @@ class HomeController extends Controller
                 ->where('id','!=',Auth::user()->id)
                 ->get();
             }
+            
             $data_dep->users = $users;
 
             $worker_id = Role::where('name','team_worker')->first()->id;
