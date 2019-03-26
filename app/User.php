@@ -55,4 +55,8 @@ class User extends Authenticatable
     public function recievedFeedbacks(){
         return $this->hasMany('App\Feedback','to_id','id');
     }
+
+    public function getAvatar(int $size = 64) {
+        return "https://ui-avatars.com/api/?name={$this->first_name}+{$this->last_name}&bold=true&background=11cdef&color=fff&font-size=0.33&size=$size";
+    }
 }
