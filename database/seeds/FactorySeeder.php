@@ -21,6 +21,7 @@ class FactorySeeder extends Seeder
             for($i = 0; $i<rand(1, 3);$i++){
                 $user->teams()->save(factory(App\Team::class)->create());
             }
+            $user->save();
         }
 
     }

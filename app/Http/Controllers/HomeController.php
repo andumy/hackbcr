@@ -27,7 +27,7 @@ class HomeController extends Controller
         $departments = Department::all();
         foreach($departments as $depart){
             var_dump($depart->name);
-            var_dump($depart->users);
+            var_dump(count($depart->users->toArray()));
 
         } 
         die();
